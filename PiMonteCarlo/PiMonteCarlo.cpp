@@ -2,19 +2,48 @@
 //
 
 #include <iostream>
+#include <cstdlib>
+#include <cmath>
+#include <iomanip>
+using namespace std;
 
+double sample();
+double getRandom();
 int main()
 {
-    std::cout << "Hello World!\n";
+	cout << sample();
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+double sample()
+{
+	int hits = 0;
+	int progress = 0;
+	
+	for (int sample = 1; sample < INT_MAX; sample++)
+	{
+		double x = getRandom();
+		double y = getRandom();
+		if (sqrt(pow(x-.5, 2) + pow(y-.5, 2))<.5)
+		{
+			hits++;
+		}
+		int temp = progress;
+		progress = double(sample) / INT_MAX * 100;
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+		if (temp < progress)
+		{
+			cout << "[" <<progress << "%]\t";
+			cout << setprecision(15) << (double(hits) / sample) / .25 << endl;
+		}
+
+
+	}
+	return (double(hits)/INT_MAX)/.25;
+
+
+}
+
+double getRandom()
+{
+	return ((double)rand() / RAND_MAX);
+}
